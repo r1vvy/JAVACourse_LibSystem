@@ -39,7 +39,11 @@ public class LibEmployee {
     private String surname;
 
     // TODO relationships 
+    
     // ManyToOne LibraryDep
+    @ManyToOne
+    @JoinColumn(name="IdDep")
+    private LibraryDep librarydep;
 
     // TODO Idea
     // employee login. When employee logs in to work, db shows boolean working = true, else false.
