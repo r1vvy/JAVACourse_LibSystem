@@ -36,10 +36,17 @@ public class LibraryDep {
     private String workHours;
 
     // TODO relationships
-    // OneToMany Books
-    // OneToMany collection of this Dep employees.
 
-    // bookQueForFutureCheckout what is that?
+	// OneToMany Books
+	@OneToMany(mappedBy = "libdep")
+	private Collection<Book> book;
+
+	// OneToMany collection of this Dep employees.
+	@OneToMany(mappedBy = "labdep")
+	private Collection<LibEmployee> libemployee;
+
+	// bookQueForFutureCheckout what is that? Sagatavo sarakstu grāmatai,
+	// ka lasītājs var nākotne jau rezervēt grāmatu
 
     public LibraryDep(SpecValue libSpec, String workHours) {
         super();
