@@ -40,4 +40,10 @@ public class LibraryDep {
     // OneToMany collection of this Dep employees.
 
     // bookQueForFutureCheckout what is that?
+
+    public LibraryDep(SpecValue libSpec, String workHours) {
+        super();
+        this.libSpec = libSpec;
+        this.workHours = workHours;
+    }
 }
