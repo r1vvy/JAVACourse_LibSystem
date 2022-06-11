@@ -35,8 +35,9 @@ public class LibraryDep {
     @Column(name = "WorkHours")
     private String workHours;
 
-    @ToString.Exclude
-    private Collection<LibEmployee> employees;
+    // TODO relationships
+    // OneToMany Books
+    // OneToMany collection of this Dep employees.
 
     // bookQueForFutureCheckout what is that?
 }

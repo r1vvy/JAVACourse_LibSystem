@@ -38,7 +38,11 @@ public class LibEmployee {
     @Pattern(regexp="[A-Z]{1}[a-z]+", message="First - capital letter, others are lowercase")
     private String surname;
 
-    // TODO relationship - OneToMany LibraryDep
+    // TODO relationships 
+    // ManyToOne LibraryDep
+
+    // TODO Idea
+    // employee login. When employee logs in to work, db shows boolean working = true, else false.
 
 
     public LibEmployee(@Size(min = 3, max = 30)
