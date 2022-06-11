@@ -50,8 +50,17 @@ public class Book {
     private RarityValue rarity;
 
     // TODO relatiosnips
-    // ManyToOne LibraryDep
-    // ManyToOne Reader
+
+	// ManyToOne LibraryDep
+	@ManyToOne
+	@JoinColumn(name = "IdRea")
+	private Reader reader;
+
+	// ManyToOne Reader
+	@ManyToOne
+	@JoinColumn(name = "IdDep")
+	private LibraryDep librarydep;
+
 
     public Book(String title, @Pattern(regexp = "\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+", message = "First - capital letter. Name can't contain numbers.") String author,
     @Min(868) short year, RatingValue rating, ConditionValue condition, RarityValue rarity) {
