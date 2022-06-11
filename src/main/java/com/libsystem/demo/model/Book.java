@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -30,9 +32,12 @@ public class Book {
     private String title;
 
     @Column(name = "Author")
+    @Pattern(regexp = "\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+", message = "First - capital letter. Name can't contain numbers.")
     private String author;
 
     @Column(name = "Year")
+    // The Diamond Sutra - oldest dated printed book.
+    @Min(868)
     private short year;
 
     @Column(name = "Rating")
@@ -44,4 +49,5 @@ public class Book {
     @Column(name = "Rarity")
     private RarityValue rarity;
 
+    
 }
