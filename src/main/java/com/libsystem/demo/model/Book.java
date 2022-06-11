@@ -49,5 +49,16 @@ public class Book {
     @Column(name = "Rarity")
     private RarityValue rarity;
 
-    
+    // After all models done add relationships.
+
+    public Book(String title, @Pattern(regexp = "\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+", message = "First - capital letter. Name can't contain numbers.") String author,
+    @Min(868) short year, RatingValue rating, ConditionValue condition, RarityValue rarity) {
+        super();
+        this.title = title;
+        this.author = author;
+        this.year = year;
+        this.rating = rating;
+        this.condition = condition;
+        this.rarity = rarity;
+    }
 }
