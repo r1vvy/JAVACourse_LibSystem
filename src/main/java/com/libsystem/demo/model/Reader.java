@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
@@ -23,7 +21,6 @@ import lombok.ToString;
 
 @Table
 @Entity
-
 @Getter
 @Setter
 @ToString
@@ -46,21 +43,22 @@ public class Reader {
 	@Pattern(regexp = "\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+", message = "First - capital letter. Name can't contain numbers.")
 	private String surname;
 	
-	@Column(name = "LibararyUserNumber")
-	private int libararyusernumber;
-	
-	@Column(name = "CurentTakenBookList")
-	private String curenttakenbooklist;
+	private Collection<Book> bookHistory;
 	
 	// viens pret daudziem
-		@OneToMany(mappedBy = "reader")
-		private Collection<Book> book;
+	@OneToMany(mappedBy = "reader")
+	@ToString.Exclude
+	private Collection<Book> books;
 
-	public Reader(@Size String name,String surname,int libararyusernumber ,String curenttakenbooklist) {
+	public Reader(@Size(min = 3, max = 30)
+	@Pattern(regexp = "\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+", message = "First - capital letter. Name can't contain numbers.")
+	String name, 
+	@Size(min = 3, max = 30)
+	@Pattern(regexp = "\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+", message = "First - capital letter. Name can't contain numbers.")
+	String surname) {
+		super();
 		this.name = name;
 		this.surname = surname;
-		this.libararyusernumber = libararyusernumber;
-		this.curenttakenbooklist = curenttakenbooklist;
 	}
 
 	

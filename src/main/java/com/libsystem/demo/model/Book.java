@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
@@ -49,8 +51,6 @@ public class Book {
     @Column(name = "Rarity")
     private RarityValue rarity;
 
-    // TODO relatiosnips
-
 	// ManyToOne LibraryDep
 	@ManyToOne
 	@JoinColumn(name = "IdRea")
@@ -59,7 +59,7 @@ public class Book {
 	// ManyToOne Reader
 	@ManyToOne
 	@JoinColumn(name = "IdDep")
-	private LibraryDep librarydep;
+	private LibraryDep libraryDep;
 
 
     public Book(String title, @Pattern(regexp = "\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+", message = "First - capital letter. Name can't contain numbers.") String author,

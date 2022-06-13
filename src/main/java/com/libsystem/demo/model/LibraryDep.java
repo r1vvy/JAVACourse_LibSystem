@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AccessLevel;
@@ -35,17 +36,18 @@ public class LibraryDep {
     @Column(name = "WorkHours")
     private String workHours;
 
-    // TODO relationships
 
 	// OneToMany Books
-	@OneToMany(mappedBy = "libdep")
-	private Collection<Book> book;
+	@OneToMany(mappedBy = "IdDep")
+    @ToString.Exclude
+	private Collection<Book> books;
 
 	// OneToMany collection of this Dep employees.
-	@OneToMany(mappedBy = "labdep")
-	private Collection<LibEmployee> libemployee;
+	@OneToMany(mappedBy = "libraryDep")
+    @ToString.Exclude
+	private Collection<LibEmployee> libEmployees;
 
-	// bookQueForFutureCheckout what is that? Sagatavo sarakstu grāmatai,
+	// bookQueForFutureCheckout - Sagatavo sarakstu grāmatai,
 	// ka lasītājs var nākotne jau rezervēt grāmatu
 
     public LibraryDep(SpecValue libSpec, String workHours) {
