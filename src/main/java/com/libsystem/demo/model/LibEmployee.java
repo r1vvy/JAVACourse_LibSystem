@@ -52,9 +52,10 @@ public class LibEmployee {
     public LibEmployee(@Size(min = 3, max = 30)
     @Pattern(regexp="[A-Z]{1}[a-z]+", message="First - capital letter, others are lowercase") String name,  @Size(min = 3, max = 30)
     @Pattern(regexp="[A-Z]{1}[a-z]+", message="First - capital letter, others are lowercase")
-    String surname) {
+    String surname, LibraryDep libraryDep) {
         super();
         this.name= name;
         this.surname= surname;
+        this.libraryDep = libraryDep;
     }
 }

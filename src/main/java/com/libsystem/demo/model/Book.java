@@ -9,7 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -34,27 +33,27 @@ public class Book {
     private String title;
 
     @Column(name = "Author")
-    @Pattern(regexp = "\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+", message = "First - capital letter. Name can't contain numbers.")
     private String author;
 
     @Column(name = "Year")
     // The Diamond Sutra - oldest dated printed book.
     @Min(868)
-    private short year;
+    private int year;
 
-    @Column(name = "Rating")
-    private RatingValue rating;
+    @Column(name = "RatingVal")
+    private RatingValue ratingVal;
 
-    @Column(name = "Condition")
-    private ConditionValue condition;
+    @Column(name = "ConditionVal")
+    private ConditionValue conditionVal;
 
-    @Column(name = "Rarity")
-    private RarityValue rarity;
+    @Column(name = "RarityVal")
+    private RarityValue rarityVal;
 
 	// ManyToOne LibraryDep
 	@ManyToOne
 	@JoinColumn(name = "IdRea")
 	private Reader reader;
+    
 
 	// ManyToOne Reader
 	@ManyToOne
@@ -62,14 +61,15 @@ public class Book {
 	private LibraryDep libraryDep;
 
 
-    public Book(String title, @Pattern(regexp = "\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+", message = "First - capital letter. Name can't contain numbers.") String author,
-    @Min(868) short year, RatingValue rating, ConditionValue condition, RarityValue rarity) {
+    public Book(String title, String author,
+    @Min(868) int year, RatingValue rating, ConditionValue condition, RarityValue rarity, LibraryDep libraryDep) {
         super();
         this.title = title;
         this.author = author;
         this.year = year;
-        this.rating = rating;
-        this.condition = condition;
-        this.rarity = rarity;
+        this.ratingVal = rating;
+        this.conditionVal = condition;
+        this.rarityVal = rarity;
+        this.libraryDep = libraryDep;
     }
 }

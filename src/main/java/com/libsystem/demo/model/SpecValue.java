@@ -9,5 +9,6 @@ public enum SpecValue {
     History,
     Health,
     Information_systems,
-    Archives_and_preservation
+    Archives_and_preservation,
+    Literature_and_fiction
 }

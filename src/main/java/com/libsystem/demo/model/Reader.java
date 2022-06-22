@@ -1,5 +1,6 @@
 package com.libsystem.demo.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -35,27 +37,22 @@ public class Reader {
 
 	@Column(name = "Name")
 	@Size(min = 3, max = 30)
-	@Pattern(regexp = "\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+", message = "First - capital letter. Name can't contain numbers.")
 	private String name;
 
 	@Column(name = "Surname")
 	@Size(min = 3, max = 30)
-	@Pattern(regexp = "\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+", message = "First - capital letter. Name can't contain numbers.")
 	private String surname;
 	
-	private Collection<Book> bookHistory;
+	@Transient // excludes variable from JPA
+	private ArrayList<Book> bookHistory;
 	
 	// viens pret daudziem
+	
 	@OneToMany(mappedBy = "reader")
 	@ToString.Exclude
 	private Collection<Book> books;
 
-	public Reader(@Size(min = 3, max = 30)
-	@Pattern(regexp = "\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+", message = "First - capital letter. Name can't contain numbers.")
-	String name, 
-	@Size(min = 3, max = 30)
-	@Pattern(regexp = "\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+", message = "First - capital letter. Name can't contain numbers.")
-	String surname) {
+	public Reader(@Size(min = 3, max = 30) String name, @Size(min = 3, max = 30) String surname) {
 		super();
 		this.name = name;
 		this.surname = surname;

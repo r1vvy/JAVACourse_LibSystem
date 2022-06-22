@@ -29,8 +29,9 @@ public class LibraryDep {
     @Setter(value = AccessLevel.NONE)
     private int idLibDep;
 
+    // TODO regex
     @Column(name = "Specialization")
-    private SpecValue libSpec;
+    private String libSpec;
     
     // TODO working hours regex or as time variable
     @Column(name = "WorkHours")
@@ -38,7 +39,7 @@ public class LibraryDep {
 
 
 	// OneToMany Books
-	@OneToMany(mappedBy = "IdDep")
+	@OneToMany(mappedBy = "libraryDep")
     @ToString.Exclude
 	private Collection<Book> books;
 
@@ -50,7 +51,7 @@ public class LibraryDep {
 	// bookQueForFutureCheckout - Sagatavo sarakstu grāmatai,
 	// ka lasītājs var nākotne jau rezervēt grāmatu
 
-    public LibraryDep(SpecValue libSpec, String workHours) {
+    public LibraryDep(String libSpec, String workHours) {
         super();
         this.libSpec = libSpec;
         this.workHours = workHours;
