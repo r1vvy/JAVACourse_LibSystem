@@ -37,7 +37,6 @@ public class LibraryDep {
     @Column(name = "WorkHours")
     private String workHours;
 
-
 	// OneToMany Books
 	@OneToMany(mappedBy = "libraryDep")
     @ToString.Exclude

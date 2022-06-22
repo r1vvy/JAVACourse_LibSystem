@@ -26,5 +26,4 @@ public interface ILibraryDepCRUDService {
 	// Update By ID
 
 	public abstract void updateById(int id, LibraryDep temp) throws Exception;
-
 }
