@@ -1,0 +1,19 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<tbody>
+        <h3>All employees</h3>
+        <table>
+            <tr>
+                <th>ID</td>
+                <th>Name</td>
+                <th>Surname</td>
+                <th>IdDep</th>
+            </tr>
+            <tr th:each="employee: ${package}">
+                <td th:text="${employee.getIdEmpl()}"></td>
+                <td th:text="${employee.getName()}"></td>
+                <td th:text="${employee.getSurname()}"></td>
+                <td th:text="${employee.getIdDep()}"></td>
+            </tr>
+        </table>
+	</tbody>
+</html>

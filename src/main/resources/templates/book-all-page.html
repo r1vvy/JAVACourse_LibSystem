@@ -1,0 +1,27 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<tbody>
+        <h3>All Books</h3>
+        <table>
+            <tr>
+                <th>ID</td>
+                <th>Title</td>
+                <th>Author</td>
+                <th>Year</th>
+                <th>Rating</th>
+                <th>Condition</th>
+                <th>Rarity</th>
+                <th>Reader</th>
+            </tr>
+            <tr th:each="book: ${package}">
+                <td th:text="${book.getIdBook()}"></td>
+                <td th:text="${book.getTitle()}"></td>
+                <td th:text="${book.getAuthor()}"></td>
+                <td th:text="${book.getYear()}"></td>
+                <td th:text="${book.getRatingVal()}"></td>
+                <td th:text="${book.getConditionVal()}"></td>
+                <td th:text="${book.getRarityVal()}"></td>
+                <td th:text="${book.getReader()}"></td>
+            </tr>
+        </table>
+	</tbody>
+</html>

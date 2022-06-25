@@ -2,6 +2,7 @@ package com.libsystem.demo.services;
 
 import java.util.ArrayList;
 
+import com.libsystem.demo.model.Book;
 import com.libsystem.demo.model.LibraryDep;
 
 public interface ILibraryDepCRUDService {
@@ -26,4 +27,8 @@ public interface ILibraryDepCRUDService {
 	// Update By ID
 
 	public abstract void updateById(int id, LibraryDep temp) throws Exception;
+
+	public abstract void addBookToLibDepById(Book book, int id) throws Exception;
+
+	public abstract ArrayList<Book> selectAllBooksInLibDepByLibDepId(int id) throws Exception;
 }

@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.libsystem.demo.model.Book;
 import com.libsystem.demo.model.LibraryDep;
+import com.libsystem.demo.repo.IBookRepo;
 import com.libsystem.demo.repo.ILibraryDepRepo;
 import com.libsystem.demo.services.ILibraryDepCRUDService;
 
@@ -13,40 +15,43 @@ import com.libsystem.demo.services.ILibraryDepCRUDService;
 public class LibraryDepCRUDServiceImpl implements ILibraryDepCRUDService {
 
 	@Autowired
-	private ILibraryDepRepo libraryRepo;
+	private ILibraryDepRepo depRepo;
+
+	@Autowired
+	private IBookRepo bookRepo;
 
 	@Override
 	public void createLibraryDep(LibraryDep temp) throws Exception{
-		if (libraryRepo.existsByLibSpec(temp.getLibSpec())) {
+		if (depRepo.existsByLibSpec(temp.getLibSpec())) {
 			throw new Exception("A department with this title already exists");
 		} else {
-			libraryRepo.save(temp);	
+			depRepo.save(temp);	
 		}
 
 	}
 
 	@Override
 	public ArrayList<LibraryDep> readAllLibraryDep() {
-		return (ArrayList<LibraryDep>) libraryRepo.findAll();
+		return (ArrayList<LibraryDep>) depRepo.findAll();
 	}
 
 	@Override
 	public LibraryDep readById(int id) throws Exception {
-		if (libraryRepo.existsById(id)) {
-			return libraryRepo.findById(id).get();
+		if (depRepo.existsById(id)) {
+			return depRepo.findById(id).get();
 		}
 		throw new Exception("You entered the wrong ID!");
 	}
 
 	@Override
 	public void deleteById(int id) {
-		libraryRepo.deleteById(id);
+		depRepo.deleteById(id);
 	}
 
 	@Override
 	public void updateById(int id, LibraryDep temp) throws Exception {
-		if (libraryRepo.existsById(id)) {
-			LibraryDep dep = libraryRepo.findById(id).get();
+		if (depRepo.existsById(id)) {
+			LibraryDep dep = depRepo.findById(id).get();
 
 			if (!dep.getLibSpec().equals(temp.getLibSpec())) {
 				dep.setLibSpec(temp.getLibSpec());
@@ -58,5 +63,29 @@ public class LibraryDepCRUDServiceImpl implements ILibraryDepCRUDService {
 			throw new Exception("Library Department is not found");
 
 		}
+	}
+
+	@Override
+    public void addBookToLibDepById(Book book, int id) throws Exception {
+        if (depRepo.existsById(id)) {
+            LibraryDep dep = depRepo.findById(id).get();
+            if (bookRepo.existsById(book.getIdBook())) {
+                dep.getBooks().add(book);
+                depRepo.save(dep);
+            }
+            else
+                throw new Exception("Please add this book to the library first");
+        }
+        else
+            throw new Exception("Department with this ID does not exist");
+    }
+
+	@Override
+	public ArrayList<Book> selectAllBooksInLibDepByLibDepId(int id) throws Exception {
+		if(depRepo.existsById(id)) {
+			return (ArrayList<Book>) depRepo.findById(id).get().getBooks();
+		}
+		else
+			throw new Exception("Library Department with this ID does not exist!");
 	}
 }

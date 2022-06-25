@@ -1,0 +1,19 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<tbody>
+        <h3>All readers</h3>
+        <table>
+            <tr>
+                <th>ID</td>
+                <th>Name</td>
+                <th>Surname</td>
+                <th>Book history</th>
+            </tr>
+            <tr th:each="reader: ${package}">
+                <td th:text="${reader.getIdRea()}"></td>
+                <td th:text="${reader.getName()}"></td>
+                <td th:text="${reader.getSurname()}"></td>
+                <td th:text="${reader.getBookHistory()}"></td>
+            </tr>
+        </table>
+	</tbody>
+</html>
