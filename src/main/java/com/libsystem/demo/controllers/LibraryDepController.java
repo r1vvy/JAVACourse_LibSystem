@@ -27,6 +27,8 @@ public class LibraryDepController {
             model.addAttribute("LibDep", libDepService.readById(id));
             return "book-add-libdep-page";
         } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("errorMsg", e.getMessage());
             return "error-page";
         }
     }
@@ -35,12 +37,8 @@ public class LibraryDepController {
         if (result.hasErrors())
             return "book-add-libdep-page";
         else {
-            try {
-                libDepService.addBookToLibDepById(book, id);
-                return "redirect:/showAllBooks/" + id;
-            } catch (Exception e) {
-                return "error-page";
-            }
+            libDepService.addBookToLibDepById(book, id);
+            return "redirect:/showAllBooks/" + id;
         }
     }
 

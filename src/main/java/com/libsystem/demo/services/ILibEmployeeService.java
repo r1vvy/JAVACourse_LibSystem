@@ -6,9 +6,9 @@ import com.libsystem.demo.model.LibEmployee;
 
 public interface ILibEmployeeService {
     
-	public abstract void addNewEmployee(LibEmployee employee);
+	public abstract void addNewEmployee(LibEmployee employee) throws Exception;
 
-	public abstract ArrayList<LibEmployee> selectAllBooks();
+	public abstract ArrayList<LibEmployee> selectAllEmployees();
 	
 	public abstract LibEmployee selectById(int id) throws Exception;
 	
