@@ -17,6 +17,7 @@ import com.libsystem.demo.services.ILibEmployeeService;
 @Controller
 @RequestMapping("/employee")
 public class LibEmplController {
+    // TODO create all pages 
     @Autowired 
     ILibEmployeeService libEmployeeService;
 
@@ -41,7 +42,7 @@ public class LibEmplController {
     public String getEmployeeRemoveById(@PathVariable(name="id") int id, Model model) throws Exception {
         try {
             libEmployeeService.deleteById(id);
-            return "redirect:/showAll";
+            return "redirect:/employee/showAll";
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("errorMsg",e.getMessage());
@@ -59,7 +60,7 @@ public class LibEmplController {
         else {
             try {
                 libEmployeeService.addNewEmployee(employee);
-                return "redirect:/showAll";
+                return "redirect:/employee/showAll/" + employee.getIdEmpl();
             } catch (Exception e) {
                 e.printStackTrace();
                 model.addAttribute("errorMsg",e.getMessage());
@@ -84,7 +85,7 @@ public class LibEmplController {
             return "employee-update-page";
         else {
             libEmployeeService.updateById(id, employee);
-            return "redirect:/showAll";
+            return "redirect:/employee/showAll/" + id;
         }
     }
 }

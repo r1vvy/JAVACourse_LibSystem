@@ -27,14 +27,17 @@ public class BookCRUDServiceImpl implements IBookCRUDService {
 	@Override
 	public Book selectById(int id) throws Exception {
 		if (bookRepo.existsById(id)) {
-			return bookRepo.findById(null).get();
+			return bookRepo.findById(id).get();
 		}
-		throw new Exception("You enter wrong ID!");
+		throw new Exception("You entered the wrong ID!");
 	}
 
 	@Override
-	public void deleteById(int id) {
-		bookRepo.deleteById(id);
+	public void deleteById(int id) throws Exception{
+		if(bookRepo.existsById(id))
+			bookRepo.deleteById(id);
+		else
+			throw new Exception("A book with this ID does not exist");
 	}
 
 	@Override
@@ -44,9 +47,22 @@ public class BookCRUDServiceImpl implements IBookCRUDService {
 			if (!book.getTitle().equals(temp.getTitle())) {
 				book.setTitle(temp.getTitle());
 			}
-			if (temp.getAuthor() != book.getAuthor()) {
+			if (!book.getAuthor().equals(temp.getAuthor())) {
 				book.setAuthor(temp.getAuthor());
 			}
+			if (!book.getConditionVal().equals(temp.getConditionVal())) {
+				book.setConditionVal(temp.getConditionVal());
+			}
+			if (!book.getRarityVal().equals(temp.getRarityVal())) {
+				book.setRarityVal(temp.getRarityVal());
+			}
+			if (!book.getRatingVal().equals(temp.getRatingVal())) {
+				book.setRatingVal(temp.getRatingVal());
+			}
+			if (!book.getLibraryDep().equals(temp.getLibraryDep())) {
+				book.setLibraryDep(temp.getLibraryDep());
+			}
+			bookRepo.save(book);
 		} else {
 			throw new Exception("Book is not found");
 		}

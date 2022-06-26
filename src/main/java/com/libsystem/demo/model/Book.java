@@ -53,13 +53,11 @@ public class Book {
 	@ManyToOne
 	@JoinColumn(name = "IdRea")
 	private Reader reader;
-    
 
 	// ManyToOne Reader
 	@ManyToOne
 	@JoinColumn(name = "IdDep")
 	private LibraryDep libraryDep;
-
 
     public Book(String title, String author,
     @Min(868) int year, RatingValue rating, ConditionValue condition, RarityValue rarity, LibraryDep libraryDep) {

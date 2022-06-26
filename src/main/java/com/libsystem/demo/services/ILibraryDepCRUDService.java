@@ -28,7 +28,5 @@ public interface ILibraryDepCRUDService {
 
 	public abstract void updateById(int id, LibraryDep temp) throws Exception;
 
-	public abstract void addBookToLibDepById(Book book, int id) throws Exception;
-
 	public abstract ArrayList<Book> selectAllBooksInLibDepByLibDepId(int id) throws Exception;
 }

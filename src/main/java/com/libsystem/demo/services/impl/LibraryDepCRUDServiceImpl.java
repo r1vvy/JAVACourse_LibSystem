@@ -27,7 +27,6 @@ public class LibraryDepCRUDServiceImpl implements ILibraryDepCRUDService {
 		} else {
 			depRepo.save(temp);	
 		}
-
 	}
 
 	@Override
@@ -64,21 +63,6 @@ public class LibraryDepCRUDServiceImpl implements ILibraryDepCRUDService {
 
 		}
 	}
-
-	@Override
-    public void addBookToLibDepById(Book book, int id) throws Exception {
-        if (depRepo.existsById(id)) {
-            LibraryDep dep = depRepo.findById(id).get();
-            if (bookRepo.existsById(book.getIdBook())) {
-                dep.getBooks().add(book);
-                depRepo.save(dep);
-            }
-            else
-                throw new Exception("Please add this book to the library first");
-        }
-        else
-            throw new Exception("Department with this ID does not exist");
-    }
 
 	@Override
 	public ArrayList<Book> selectAllBooksInLibDepByLibDepId(int id) throws Exception {

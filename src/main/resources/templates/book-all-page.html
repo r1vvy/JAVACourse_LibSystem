@@ -1,4 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
+    <body>
+    <div th:insert="navbar :: navbar"></div>
 	<tbody>
         <h3>All Books</h3>
         <table>
@@ -21,7 +23,10 @@
                 <td th:text="${book.getConditionVal()}"></td>
                 <td th:text="${book.getRarityVal()}"></td>
                 <td th:text="${book.getReader()}"></td>
+                <td><a th:href="@{/book/update/{id}(id=${book.getIdBook()})}">Edit</a></td>
+                <td><a th:href="@{/book/remove/{id}(id=${book.getIdBook()})}">Delete</a></td>
             </tr>
         </table>
 	</tbody>
+    </body>
 </html>

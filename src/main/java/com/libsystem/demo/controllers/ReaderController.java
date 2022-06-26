@@ -17,6 +17,7 @@ import com.libsystem.demo.services.IReaderCRUDService;
 @Controller
 @RequestMapping("/reader")
 public class ReaderController {
+    // TODO create all pages
     @Autowired
     private IReaderCRUDService readerService;
     
@@ -40,7 +41,7 @@ public class ReaderController {
     public String getReaderRemoveById(@PathVariable(name="id") int id, Model model) throws Exception {
         try {
             readerService.deleteById(id);
-            return "redirect:/showAll";
+            return "redirect:/reader/showAll";
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("errorMsg",e.getMessage());
@@ -58,7 +59,7 @@ public class ReaderController {
         else {
             try {
                 readerService.addNewReader(reader);
-                return "redirect:/showAll";
+                return "redirect:/reader/showAll/" + reader.getIdRea();
             } catch (Exception e) {
                 e.printStackTrace();
                 model.addAttribute("errorMsg",e.getMessage());
@@ -83,7 +84,7 @@ public class ReaderController {
             return "reader-update-page";
         else {
             readerService.updateById(id, reader);
-            return "redirect:/showAll";
+            return "redirect:/reader/showAll/" + id;
         }
     }
 }

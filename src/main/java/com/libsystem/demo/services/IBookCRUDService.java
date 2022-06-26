@@ -13,7 +13,7 @@ public interface IBookCRUDService {
 	
 	public abstract Book selectById(int id) throws Exception;
 	
-	public abstract void deleteById(int id);
+	public abstract void deleteById(int id) throws Exception;
 	
 	public abstract void updateById(int id, Book temp) throws Exception;
 

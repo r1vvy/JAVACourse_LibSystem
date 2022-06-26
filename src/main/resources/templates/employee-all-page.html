@@ -1,4 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
+    <body>
+    <div th:insert="navbar :: navbar"></div>
 	<tbody>
         <h3>All employees</h3>
         <table>
@@ -12,8 +14,12 @@
                 <td th:text="${employee.getIdEmpl()}"></td>
                 <td th:text="${employee.getName()}"></td>
                 <td th:text="${employee.getSurname()}"></td>
-                <td th:text="${employee.getIdDep()}"></td>
+                <td th:text="${employee.getLibraryDep().getIdLibDep()}"></td>
+                <td><a th:href="@{/employee/update/{id}(id=${employee.getIdEmpl()})}">Edit</a></td>
+                <td><a th:href="@{/employee/remove/{id}(id=${employee.getIdEmpl()})}">Delete</a></td>
             </tr>
         </table>
 	</tbody>
+    
+    </body>
 </html>

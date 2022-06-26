@@ -1,17 +1,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
-	<tbody>
-        <h3>All Library Departments</h3>
-        <table>
-            <tr>
-                <th>ID</td>
-                <th>Specialization</td>
-                <th>Work hours</td>
-            </tr>
-            <tr th:each="libDep: ${package}">
-                <td th:text="${libDep.getIdLibDep()}"></td>
-                <td th:text="${libDep.getLibSpec()}"></td>
-                <td th:text="${libDep.getWorkHours()}"></td>
-            </tr>
-        </table>
-	</tbody>
+    <body>
+        <div th:insert="navbar :: navbar"></div>
+        <tbody>
+            <h3>All Library Departments</h3>
+            <table>
+                <tr>
+                    <th>ID</td>
+                    <th>Specialization</td>
+                    <th>Work hours</td>
+                </tr>
+                <tr th:each="libDep: ${package}">
+                    <td th:text="${libDep.getIdLibDep()}"></td>
+                    <td th:text="${libDep.getLibSpec()}"></td>
+                    <td th:text="${libDep.getWorkHours()}"></td>
+                    <td><a th:href="@{/libDep/update/{id}(id=${libDep.getIdLibDep()})}">Edit</a></td>
+                    <td><a th:href="@{/libDep/remove/{id}(id=${libDep.getIdLibDep()})}">Delete</a></td>
+                </tr>
+            </table>
+        </tbody>
+    </body>
 </html>

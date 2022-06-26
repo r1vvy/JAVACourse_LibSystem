@@ -13,11 +13,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.libsystem.demo.model.Book;
 import com.libsystem.demo.services.IBookCRUDService;
+import com.libsystem.demo.services.ILibraryDepCRUDService;
 
 @Controller
 @RequestMapping("/book")
 public class BookController {
-    @Autowired IBookCRUDService bookService;
+    @Autowired 
+    IBookCRUDService bookService;
+
+    @Autowired
+    ILibraryDepCRUDService depService;
 
     @GetMapping("/showAll")
     public String getBookAll(Model model) {
@@ -40,7 +45,7 @@ public class BookController {
     public String getBookRemoveById(@PathVariable(name="id") int id, Model model) throws Exception {
         try {
             bookService.deleteById(id);
-            return "redirect:/showAll";
+            return "redirect:/book/showAll";
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("errorMsg",e.getMessage());
@@ -52,13 +57,13 @@ public class BookController {
         return "book-add-page";
     }
     @PostMapping("/addNew") // localhost:8080/book/addNew
-    public String postTeacherAdd(@Valid Book book, BindingResult result, Model model) throws Exception{
+    public String postBookAdd(@Valid Book book, BindingResult result, Model model) throws Exception{
         if(result.hasErrors())
             return"book-add-page";
         else {
             try {
                 bookService.addNewBook(book);
-                return "redirect:/showAll";
+                return "redirect:/book/showAll/" + book.getIdBook();
             } catch (Exception e) {
                 e.printStackTrace();
                 model.addAttribute("errorMsg",e.getMessage());
@@ -67,9 +72,11 @@ public class BookController {
         }
     }
     @GetMapping("/update/{id}")
-    public String getBookUpdateById(@PathVariable(name = "id") int id, Model model) throws Exception { 
+    public String getBookUpdate(@PathVariable(name = "id") int id, Model model) throws Exception { 
         try {
-            model.addAttribute("package", bookService.selectById(id));
+            Book book = bookService.selectById(id);
+            model.addAttribute("book", book);
+            model.addAttribute("departments", depService.readAllLibraryDep());
             return "book-update-page";
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,12 +85,17 @@ public class BookController {
         }
     }
     @PostMapping("/update/{id}")
-    public String postBookUpdateById(@PathVariable(name = "id") int id, @Valid Book book, BindingResult result) throws Exception {
+    public String postBookUpdate(@PathVariable(name = "id") int id, @Valid Book book, BindingResult result) throws Exception {
         if(result.hasErrors())
             return "book-update-page";
         else {
-            bookService.updateById(id, book);
-            return "redirect:/showAll";
+            try {
+                bookService.updateById(id, book);
+                return "redirect:/book/showAll/" + id;
+            } catch (Exception e) {
+               return "error-page";
+            }
+
         }
     }
     

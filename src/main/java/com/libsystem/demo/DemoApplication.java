@@ -1,5 +1,7 @@
 package com.libsystem.demo;
 
+import java.util.ArrayList;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -53,6 +55,10 @@ public class DemoApplication {
 
 				readerRepo.save(reader1);
 				readerRepo.save(reader2);
+				book1.setLibraryDep(libraryDep1);
+				bookRepo.save(book1);
+				System.out.println(depRepo.findById(1).get());
+
 			}	
 		};
 	}

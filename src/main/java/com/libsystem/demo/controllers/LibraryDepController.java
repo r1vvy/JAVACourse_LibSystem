@@ -18,7 +18,7 @@ import com.libsystem.demo.services.ILibraryDepCRUDService;
 @Controller
 @RequestMapping("/libDep")
 public class LibraryDepController {
-    // todo error page add attribute exception
+    // TODO add all pages
     @Autowired
     private ILibraryDepCRUDService libDepService;
     
@@ -39,7 +39,7 @@ public class LibraryDepController {
             return "book-add-libdep-page";
         else {
             libDepService.addBookToLibDepById(book, id);
-            return "redirect:/showAllBooks/" + id;
+            return "redirect:/libDep/showAllBooks/" + id;
         }
     }
 
@@ -63,7 +63,7 @@ public class LibraryDepController {
     public String getLibDepRemoveById(@PathVariable(name="id") int id, Model model) throws Exception {
         try {
             libDepService.deleteById(id);
-            return "redirect:/showAll";
+            return "redirect:/libDep/showAll";
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("errorMsg",e.getMessage());
@@ -81,7 +81,7 @@ public class LibraryDepController {
         else {
             try {
                 libDepService.createLibraryDep(libraryDep);
-                return "redirect:/showAll";
+                return "redirect:/libDep/showAll/" + libraryDep.getIdLibDep();
             } catch (Exception e) {
                 e.printStackTrace();
                 model.addAttribute("errorMsg",e.getMessage());
@@ -106,7 +106,7 @@ public class LibraryDepController {
             return "libdep-update-page";
         else {
             libDepService.updateById(id, libraryDep);
-            return "redirect:/showAll";
+            return "redirect:/libDep/showAll/" + id;
         }
     }
 }
