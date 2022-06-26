@@ -11,36 +11,35 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.libsystem.demo.model.LibEmployee;
-import com.libsystem.demo.services.ILibEmployeeService;
+import com.libsystem.demo.model.Reader;
+import com.libsystem.demo.services.IReaderCRUDService;
 
 @Controller
-@RequestMapping("/employee")
-public class LibEmplController {
-    @Autowired 
-    ILibEmployeeService libEmployeeService;
-
-
+@RequestMapping("/reader")
+public class ReaderController {
+    @Autowired
+    private IReaderCRUDService readerService;
+    
     @GetMapping("/showAll")
-    public String getEmployeeAll(Model model) {
-        model.addAttribute("package", libEmployeeService.selectAllEmployees());
-        return "employee-all-page";
+    public String getReaderAll(Model model) {
+        model.addAttribute("package", readerService.readAllReaders());
+        return "reader-all-page";
     }
     @GetMapping("/showAll/{id}")
-    public String getEmployeeById(@PathVariable(name="id") int id, Model model) throws Exception {
+    public String getReaderById(@PathVariable(name="id") int id, Model model) throws Exception {
         try {
-            model.addAttribute("package", libEmployeeService.selectById(id));
-            return "employee-one-page";
+            model.addAttribute("package", readerService.selectById(id));
+            return "reader-one-page";
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("errorMsg", e.getMessage());
-            return "error-page";
+            return "error-page"; 
         }
     }
     @GetMapping("/remove/{id}")
-    public String getEmployeeRemoveById(@PathVariable(name="id") int id, Model model) throws Exception {
+    public String getReaderRemoveById(@PathVariable(name="id") int id, Model model) throws Exception {
         try {
-            libEmployeeService.deleteById(id);
+            readerService.deleteById(id);
             return "redirect:/showAll";
         } catch (Exception e) {
             e.printStackTrace();
@@ -49,16 +48,16 @@ public class LibEmplController {
         }
     }
     @GetMapping("/addNew")
-    public String getEmployeeAdd(LibEmployee employee) {
-        return "employee-add-page";
+    public String getReaderAdd(Reader reader) {
+        return "reader-add-page";
     }
-    @PostMapping("/addNew")
-    public String postTeacherAdd(@Valid LibEmployee employee, BindingResult result, Model model) throws Exception{
+    @PostMapping("/addNew") // localhost:8080/book/addNew
+    public String postReaderAdd(@Valid Reader reader, BindingResult result, Model model) throws Exception{
         if(result.hasErrors())
-            return"employee-add-page";
+            return"reader-add-page";
         else {
             try {
-                libEmployeeService.addNewEmployee(employee);
+                readerService.addNewReader(reader);
                 return "redirect:/showAll";
             } catch (Exception e) {
                 e.printStackTrace();
@@ -68,10 +67,10 @@ public class LibEmplController {
         }
     }
     @GetMapping("/update/{id}")
-    public String getEmployeeUpdateById(@PathVariable(name = "id") int id, Model model) throws Exception { 
+    public String getReaderUpdateById(@PathVariable(name = "id") int id, Model model) throws Exception { 
         try {
-            model.addAttribute("package", libEmployeeService.selectById(id));
-            return "employee-update-page";
+            model.addAttribute("package", readerService.selectById(id));
+            return "reader-update-page";
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("errorMsg",e.getMessage());
@@ -79,11 +78,11 @@ public class LibEmplController {
         }
     }
     @PostMapping("/update/{id}")
-    public String postBookUpdateById(@PathVariable(name = "id") int id, @Valid LibEmployee employee, BindingResult result) throws Exception {
+    public String postReaderUpdateById(@PathVariable(name = "id") int id, @Valid Reader reader, BindingResult result) throws Exception {
         if(result.hasErrors())
-            return "employee-update-page";
+            return "reader-update-page";
         else {
-            libEmployeeService.updateById(id, employee);
+            readerService.updateById(id, reader);
             return "redirect:/showAll";
         }
     }

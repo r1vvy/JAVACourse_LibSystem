@@ -29,7 +29,7 @@ public class BookController {
     public String getBookById(@PathVariable(name="id") int id, Model model) throws Exception {
         try {
             model.addAttribute("package", bookService.selectById(id));
-            return "book-all-page";
+            return "book-one-page";
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("errorMsg", e.getMessage());
@@ -57,8 +57,8 @@ public class BookController {
             return"book-add-page";
         else {
             try {
-                bookService.addNewBook(book);;
-                return "redirect:/book/showAll/";
+                bookService.addNewBook(book);
+                return "redirect:/showAll";
             } catch (Exception e) {
                 e.printStackTrace();
                 model.addAttribute("errorMsg",e.getMessage());
@@ -69,7 +69,7 @@ public class BookController {
     @GetMapping("/update/{id}")
     public String getBookUpdateById(@PathVariable(name = "id") int id, Model model) throws Exception { 
         try {
-            model.addAttribute("teacher", bookService.selectById(id));
+            model.addAttribute("package", bookService.selectById(id));
             return "book-update-page";
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,8 +83,9 @@ public class BookController {
             return "book-update-page";
         else {
             bookService.updateById(id, book);
-            return "redirect:/book/showAll/";
+            return "redirect:/showAll";
         }
     }
+    
 
 }
