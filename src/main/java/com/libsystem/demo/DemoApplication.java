@@ -55,10 +55,6 @@ public class DemoApplication {
 
 				readerRepo.save(reader1);
 				readerRepo.save(reader2);
-				book1.setLibraryDep(libraryDep1);
-				bookRepo.save(book1);
-				System.out.println(depRepo.findById(1).get());
-
 			}	
 		};
 	}

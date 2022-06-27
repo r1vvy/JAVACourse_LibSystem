@@ -1,0 +1,28 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<body>
+    <div th:insert="navbar :: navbar"></div>
+	<p>Please fill the form to update the Library Department</p>
+		<form action="#" th:action="@{/libDep/update/__{id}__}" th:object="${libraryDep}" method="post" >
+	
+		<table>
+		
+			<tr>
+				<td> Specialization: </td>
+				<td> <input type="text" th:field="*{libSpec}" > </td>
+				<td  th:if="${#fields.hasErrors('libSpec')}" th:errors="*{libSpec}"> </td>
+			</tr>
+			
+			<tr>
+				<td> Work hours:  </td>
+				<td> <input type="text" th:field="*{workHours}" > </td>
+				<td  th:if="${#fields.hasErrors('workHours')}" th:errors="*{workHours}"> </td>		
+			
+			</tr>		
+			</table>
+			
+			<button type="submit">Update</button>
+            <input type="reset">   
+		</form>	
+
+	</body>
+</html>

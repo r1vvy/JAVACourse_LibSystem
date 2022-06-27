@@ -1,0 +1,25 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <body>
+    <div th:insert="navbar :: navbar"></div>
+	<tbody>
+        <h3>Employee data</h3>
+        <table>
+            <tr>
+                <th>ID</td>
+                <th>Name</td>
+                <th>Surname</td>
+                <th>Department</th>
+            </tr>
+            <tr th:each="employee: ${package}">
+                <td th:text="${employee.getIdEmpl()}"></td>
+                <td th:text="${employee.getName()}"></td>
+                <td th:text="${employee.getSurname()}"></td>
+                <td th:text="${employee.getLibraryDep()?.getLibSpec()} ?: 'NONE'"></td>
+                <td><a th:href="@{/employee/update/{id}(id=${employee.getIdEmpl()})}">Edit</a></td>
+                <td><a th:href="@{/employee/remove/{id}(id=${employee.getIdEmpl()})}">Delete</a></td>
+            </tr>
+        </table>
+	</tbody>
+    
+    </body>
+</html>

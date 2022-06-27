@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.libsystem.demo.model.LibEmployee;
 import com.libsystem.demo.services.ILibEmployeeService;
+import com.libsystem.demo.services.ILibraryDepCRUDService;
 
 @Controller
 @RequestMapping("/employee")
@@ -20,6 +21,8 @@ public class LibEmplController {
     // TODO create all pages 
     @Autowired 
     ILibEmployeeService libEmployeeService;
+    @Autowired
+    ILibraryDepCRUDService depService;
 
 
     @GetMapping("/showAll")
@@ -50,7 +53,8 @@ public class LibEmplController {
         }
     }
     @GetMapping("/addNew")
-    public String getEmployeeAdd(LibEmployee employee) {
+    public String getEmployeeAdd(LibEmployee employee, Model model) {
+        model.addAttribute("departments", depService.readAllLibraryDep());
         return "employee-add-page";
     }
     @PostMapping("/addNew")
@@ -71,7 +75,8 @@ public class LibEmplController {
     @GetMapping("/update/{id}")
     public String getEmployeeUpdateById(@PathVariable(name = "id") int id, Model model) throws Exception { 
         try {
-            model.addAttribute("package", libEmployeeService.selectById(id));
+            model.addAttribute("employee", libEmployeeService.selectById(id));
+            model.addAttribute("departments", depService.readAllLibraryDep());
             return "employee-update-page";
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,12 +85,19 @@ public class LibEmplController {
         }
     }
     @PostMapping("/update/{id}")
-    public String postBookUpdateById(@PathVariable(name = "id") int id, @Valid LibEmployee employee, BindingResult result) throws Exception {
+    public String postBookUpdateById(@PathVariable(name = "id") int id, @Valid LibEmployee employee, BindingResult result, Model model) throws Exception {
         if(result.hasErrors())
             return "employee-update-page";
         else {
-            libEmployeeService.updateById(id, employee);
-            return "redirect:/employee/showAll/" + id;
+            try {
+                libEmployeeService.updateById(id, employee);
+                return "redirect:/employee/showAll/" + id;
+            } catch (Exception e) {
+                e.printStackTrace();
+                model.addAttribute("errorMsg",e.getMessage());
+               return "error-page";
+            }
+
         }
     }
 }

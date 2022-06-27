@@ -1,0 +1,26 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<body>
+    <div th:insert="navbar :: navbar"></div>
+	<p>Please fill the form to register</p>
+		<form action="#" th:action="@{/reader/addNew}" th:object="${reader}" method="post" >
+	
+		<table>
+			<tr>
+				<td> Name: </td>
+				<td> <input type="text" th:field="*{name}" > </td>
+				<td  th:if="${#fields.hasErrors('name')}" th:errors="*{name}"> </td>
+			</tr>
+			
+			<tr>
+				<td> Surname:  </td>
+				<td> <input type="text" th:field="*{surname}" > </td>
+				<td  th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"> </td>		
+			</tr>
+			
+			<button type="submit">Add</button>
+            <input type="reset">
+            
+		</form>	
+
+	</body>
+</html>

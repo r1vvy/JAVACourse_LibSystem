@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.libsystem.demo.model.Book;
 import com.libsystem.demo.services.IBookCRUDService;
 import com.libsystem.demo.services.ILibraryDepCRUDService;
+import com.libsystem.demo.services.IReaderCRUDService;
 
 @Controller
 @RequestMapping("/book")
@@ -23,6 +24,32 @@ public class BookController {
 
     @Autowired
     ILibraryDepCRUDService depService;
+
+    @Autowired
+    IReaderCRUDService readerService;
+
+    @GetMapping("/addToReader/{bookId}/{readerId}")
+    public String getBookAddToReader(@PathVariable("bookId") int bookId, @PathVariable("readerId") int readerId, Model model) {
+        try {
+            bookService.addReader(bookId, readerId);
+            return "redirect:/book/showAll/" + bookId;
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("errorMsg", e.getMessage());
+            return "error-page";
+        }
+    }
+    @GetMapping("/removeReader/{bookId}")
+    public String getRemoveReader(@PathVariable("bookId") int bookId, Model model) {
+        try {
+            bookService.removeReader(bookId);
+            return "redirect:/book/showAll/" + bookId;
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("errorMsg", e.getMessage());
+            return "error-page";
+        }
+    }
 
     @GetMapping("/showAll")
     public String getBookAll(Model model) {
@@ -53,7 +80,8 @@ public class BookController {
         }
     }
     @GetMapping("/addNew")
-    public String getBookAdd(Book book) {
+    public String getBookAdd(Book book, Model model) {
+        model.addAttribute("departments", depService.readAllLibraryDep());
         return "book-add-page";
     }
     @PostMapping("/addNew") // localhost:8080/book/addNew
@@ -66,7 +94,7 @@ public class BookController {
                 return "redirect:/book/showAll/" + book.getIdBook();
             } catch (Exception e) {
                 e.printStackTrace();
-                model.addAttribute("errorMsg",e.getMessage());
+                model.addAttribute("errorMsg", e.getMessage());
                 return "error-page";
             }
         }
@@ -85,7 +113,7 @@ public class BookController {
         }
     }
     @PostMapping("/update/{id}")
-    public String postBookUpdate(@PathVariable(name = "id") int id, @Valid Book book, BindingResult result) throws Exception {
+    public String postBookUpdate(@PathVariable(name = "id") int id, @Valid Book book, BindingResult result, Model model) throws Exception {
         if(result.hasErrors())
             return "book-update-page";
         else {
@@ -93,6 +121,8 @@ public class BookController {
                 bookService.updateById(id, book);
                 return "redirect:/book/showAll/" + id;
             } catch (Exception e) {
+                e.printStackTrace();
+                model.addAttribute("errorMsg",e.getMessage());
                return "error-page";
             }
 

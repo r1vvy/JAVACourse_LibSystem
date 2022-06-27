@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.libsystem.demo.model.Book;
+import com.libsystem.demo.model.Reader;
 import com.libsystem.demo.repo.IBookRepo;
+import com.libsystem.demo.repo.IReaderRepo;
 import com.libsystem.demo.services.IBookCRUDService;
 
 @Service
@@ -13,6 +15,9 @@ public class BookCRUDServiceImpl implements IBookCRUDService {
 
 	@Autowired
 	private IBookRepo bookRepo;
+
+	@Autowired
+	private IReaderRepo readerRepo;
 
 	@Override
 	public void addNewBook(Book temp) {
@@ -67,5 +72,27 @@ public class BookCRUDServiceImpl implements IBookCRUDService {
 			throw new Exception("Book is not found");
 		}
 	}
-
+	public void addReader(int bookId, int readerId) throws Exception {
+		if(!readerRepo.existsById(readerId) && !bookRepo.existsById(bookId)) {
+			throw new Exception("Reader or book with supplied ID doesnt exist!");
+		} else {
+			Book book = bookRepo.findById(bookId).get();
+			Reader reader = readerRepo.findById(readerId).get();
+			book.setReader(reader);
+			bookRepo.save(book);
+		}
+	}
+	public void removeReader(int id) throws Exception {
+		if(!bookRepo.existsById(id)) {
+			throw new Exception("Book with supplied ID doesnt exist!");
+		} else {
+			Book book = bookRepo.findById(id).get();
+			if(!book.getReader().equals(null)) {
+				book.setReader(null);
+				bookRepo.save(book);
+			}
+			else
+				throw new Exception("The book has no current reader!");
+		}
+	}
 }

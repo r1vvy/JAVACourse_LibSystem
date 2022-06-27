@@ -1,0 +1,36 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<body>
+    <div th:insert="navbar :: navbar"></div>
+	<p>Please fill this form to update the employee's data</p>
+		<form action="#" th:action="@{/employee/update/__${id}__}" th:object="${employee}" method="post" >	
+			<table>
+                <tr>
+                    <td> Name: </td>
+                    <td> <input type="text" th:field="*{name}" > </td>
+                    <td  th:if="${#fields.hasErrors('name')}" th:errors="*{name}"> </td>
+                </tr>
+                
+                <tr>
+                    <td> Surname:  </td>
+                    <td> <input type="text" th:field="*{surname}" > </td>
+                    <td  th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"> </td>		
+                
+                </tr>
+                    <td> Library department: </td>
+                    <td>
+                        <select name="Library Department" th:field="*{libraryDep}">
+                        <option th:each="libraryDep : ${departments}"
+                        th:value="${libraryDep.idLibDep}" th:text="${libraryDep.libSpec}"></option>
+                        </select>	
+                    </td>
+                </tr>	
+			</table>
+			
+			
+			<button type="submit">Update</button>
+            <input type="reset">
+	
+		</form>	
+
+	</body>
+</html>

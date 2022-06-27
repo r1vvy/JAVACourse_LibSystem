@@ -22,26 +22,6 @@ public class LibraryDepController {
     @Autowired
     private ILibraryDepCRUDService libDepService;
     
-    @GetMapping("/addBook/{id}")
-    public String getAddBookToLibDep(@PathVariable(name = "id") int id, Model model) throws Exception {
-        try {
-            model.addAttribute("LibDep", libDepService.readById(id));
-            return "book-add-libdep-page";
-        } catch (Exception e) {
-            e.printStackTrace();
-            model.addAttribute("errorMsg", e.getMessage());
-            return "error-page";
-        }
-    }
-    @PostMapping("/addBook/{id}")
-    public String getAddBookToLibDep(@PathVariable(name = "id") int id, @Valid Book book, BindingResult result) throws Exception {
-        if (result.hasErrors())
-            return "book-add-libdep-page";
-        else {
-            libDepService.addBookToLibDepById(book, id);
-            return "redirect:/libDep/showAllBooks/" + id;
-        }
-    }
 
     @GetMapping("/showAll")
     public String getLibDepAll(Model model) {

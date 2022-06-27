@@ -1,74 +1,26 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<body>
     <div th:insert="navbar :: navbar"></div>
-	<p>Please fill this form to update this reader's data</p>
-		<form action="#" th:action="@{/reader/update/__${id}__}" th:object="${package}" method="post" >
+	<p>Please fill the form to update</p>
+		<form action="#" th:action="@{/reader/update/__${id}__}" th:object="${reader}" method="post" >
 	
+		<table>
+			<tr>
+				<td> Name: </td>
+				<td> <input type="text" th:field="*{name}" > </td>
+				<td  th:if="${#fields.hasErrors('name')}" th:errors="*{name}"> </td>
+			</tr>
 			
-			<table>
-		
-                <tr>
-                    <td> Title: </td>
-                    <td> <input type="text" th:field="*{title}"> </td>
-                    <td  th:if="${#fields.hasErrors('title')}" th:errors="*{title}"> </td>
-                </tr>
-                
-                <tr>
-                    <td> Author:  </td>
-                    <td> <input type="text" th:field="*{author}" > </td>
-                    <td  th:if="${#fields.hasErrors('author')}" th:errors="*{author}"> </td>		
-                
-                </tr>
-                <tr>
-                    <td> Year:  </td>
-                    <td> <input type="number" th:field="*{year}" min="863" value="863"> </td>
-                    <td  th:if="${#fields.hasErrors('year')}" th:errors="*{year}"> </td>		
-                
-                </tr>
-                <tr>
-                    <td> Condition: </td>
-                    <td>
-                        <select name="Condition" th:field="*{conditionVal}">
-                        <option th:each="value : ${T(com.libsystem.demo.model.ConditionValue).values()}"
-                        th:value="${value}" th:text="${value.displayValue}"></option>
-                        </select>	
-                    </td>
-                </tr>
-                <tr>
-                    <td> Rarity: </td>
-                    <td>
-                        <select name="Rarity" th:field="*{rarityVal}">
-                        <option th:each="value: ${T(com.libsystem.demo.model.RarityValue).values()}"
-                        th:value="${value}" th:text="${value.displayValue}"></option>
-                        </select>	
-                    </td>
-                </tr>
-                <tr>
-                    <td> Rating: </td>
-                    <td>
-                        <select name="Rating" th:field="*{ratingVal}">
-                        <option th:each="value : ${T(com.libsystem.demo.model.RatingValue).values()}"
-                        th:value="${value}" th:text="${value.displayValue}"></option>
-                        </select>	
-                    </td>
-                </tr>
-                <!-- TODO doesnt update -->
-                <tr>
-                    <td> Library department: </td>
-                    <td>
-                        <select name="Library Department" th:field="*{libraryDep}">
-                        <option th:each="libraryDep : ${departments}"
-                        th:value="${libraryDep}" th:text="${libraryDep.libSpec}"></option>
-                        </select>	
-                    </td>
-                </tr>
-               
-					
-			</table>
-			
+			<tr>
+				<td> Surname:  </td>
+				<td> <input type="text" th:field="*{surname}" > </td>
+				<td  th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"> </td>		
+			</tr>
+		</table>
 			
 			<button type="submit">Update</button>
-	
+            <input type="reset">
+            
 		</form>	
 
 	</body>

@@ -8,13 +8,11 @@
                     <th>ID</td>
                     <th>Name</td>
                     <th>Surname</td>
-                    <th>Book history</th>
                 </tr>
                 <tr th:each="reader: ${package}">
                     <td th:text="${reader.getIdRea()}"></td>
                     <td th:text="${reader.getName()}"></td>
                     <td th:text="${reader.getSurname()}"></td>
-                    <td th:text="${reader.getBookHistory()}"></td>
                     <td><a th:href="@{/reader/update/{id}(id=${reader.getIdRea()})}">Edit</a></td>
                     <td><a th:href="@{/reader/remove/{id}(id=${reader.getIdRea()})}">Delete</a></td>
                 </tr>

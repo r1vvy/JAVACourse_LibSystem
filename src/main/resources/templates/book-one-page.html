@@ -11,17 +11,21 @@
                     <th>Rating</th>
                     <th>Condition</th>
                     <th>Rarity</th>
-                    <th>Reader</th>
+                    <th>Current reader</th>
+                    <th>Department and genre</th>
                 </tr>
                 <tr th:each="book: ${package}">
                     <td th:text="${book.getIdBook()}"></td>
                     <td th:text="${book.getTitle()}"></td>
                     <td th:text="${book.getAuthor()}"></td>
                     <td th:text="${book.getYear()}"></td>
-                    <td th:text="${book.getRatingVal()}"></td>
-                    <td th:text="${book.getConditionVal()}"></td>
-                    <td th:text="${book.getRarityVal()}"></td>
-                    <td th:text="${book.getReader()}"></td>
+                    <td th:text="${book.getRatingVal().displayValue}"></td>
+                    <td th:text="${book.getConditionVal().displayValue}"></td>
+                    <td th:text="${book.getRarityVal().displayValue}"></td>
+                    <td th:text="${book.getReader()?.getName() + ' ' + book.getReader()?.getSurname()}"></td>
+                    <td th:text="${book.getLibraryDep()?.getLibSpec()} ?: 'No department. Please contact admin!'"></td>
+                    <td><a th:href="@{/book/update/{id}(id=${book.getIdBook()})}">Edit</a></td>
+                    <td><a th:href="@{/book/remove/{id}(id=${book.getIdBook()})}">Delete</a></td>
                 </tr>
             </table>
         </tbody>

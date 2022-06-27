@@ -30,6 +30,7 @@ public class ReaderController {
     public String getReaderById(@PathVariable(name="id") int id, Model model) throws Exception {
         try {
             model.addAttribute("package", readerService.selectById(id));
+            model.addAttribute("takenBooks", readerService.selectById(id).getBooks());
             return "reader-one-page";
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,7 +71,7 @@ public class ReaderController {
     @GetMapping("/update/{id}")
     public String getReaderUpdateById(@PathVariable(name = "id") int id, Model model) throws Exception { 
         try {
-            model.addAttribute("package", readerService.selectById(id));
+            model.addAttribute("reader", readerService.selectById(id));
             return "reader-update-page";
         } catch (Exception e) {
             e.printStackTrace();

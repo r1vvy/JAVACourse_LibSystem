@@ -50,6 +50,15 @@
                     </select>	
                 </td>
 			</tr>
+            <tr>
+                <td> Library department: </td>
+                <td>
+                    <select name="Library Department" th:field="*{libraryDep}">
+                    <option th:each="libraryDep : ${departments}"
+                    th:value="${libraryDep.idLibDep}" th:text="${libraryDep.libSpec}"></option>
+                    </select>	
+                </td>
+            </tr>
 					
 					
 			</table>
