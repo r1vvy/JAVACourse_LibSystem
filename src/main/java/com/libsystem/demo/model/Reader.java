@@ -42,9 +42,6 @@ public class Reader {
 	@Size(min = 3, max = 30)
 	private String surname;
 	
-	@Transient // excludes variable from JPA
-	private ArrayList<Book> bookHistory;
-	
 	// viens pret daudziem
 	
 	@OneToMany(mappedBy = "reader")
